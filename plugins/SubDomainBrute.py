@@ -38,6 +38,9 @@ class Brute(object):
             results = await pool.map(self.dns_query, sub_domain)
         for result in results:
             print(result)
+            with open('res.txt', 'w') as f:
+                f.write(result)
+                f.write('\n')
 
     def main(self):
         start_time = time.time()
@@ -47,4 +50,5 @@ class Brute(object):
 
 
 if __name__ == "__main__":
-    Brute("youdao.com")
+    b = Brute("youdao.com")
+    b.main()
