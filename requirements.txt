@@ -1,0 +1,2 @@
+aiodns=2.0.0
+aiomultiprocess=0.7.0
