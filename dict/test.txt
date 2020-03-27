@@ -1,0 +1,8 @@
+www
+mail
+mx
+ns1
+ns2
+m
+ns
+mx0

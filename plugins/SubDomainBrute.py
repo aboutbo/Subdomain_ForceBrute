@@ -19,7 +19,8 @@ class Brute(object):
     # 子域名DNS解析
     async def dns_query(self, sub_domain):
         resolver = aiodns.DNSResolver(
-            nameservers=["114.114.114.114", "223.5.5.5"], timeout=3)
+            nameservers=["114.114.114.114", "223.5.5.5", "119.29.29.29"],
+            timeout=3)
         try:
             query_result = await resolver.query(sub_domain, 'A')
             return sub_domain, query_result[0].host
@@ -34,13 +35,11 @@ class Brute(object):
                 set([sub.strip() + '.' + self.domain for sub in f]))
 
         # 创建多进程
-        async with Pool(processes=self.processes, childconcurrency=20) as pool:
+        async with Pool(processes=self.processes, childconcurrency=200) as pool:
             results = await pool.map(self.dns_query, sub_domain)
         for result in results:
-            print(result)
-            with open('res.txt', 'w') as f:
-                f.write(result)
-                f.write('\n')
+            if result[0]:
+                print(result[0])
 
     def main(self):
         start_time = time.time()
